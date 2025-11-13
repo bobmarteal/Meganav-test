@@ -199,14 +199,17 @@ import { SITE_TITLE } from "../consts";
 
   nav.main-nav {
     display: flex;
+	gap: 1rem;
     justify-content: flex-start;
     align-items: center;
     position: relative;
-    padding: 0 var(--page-padding);
+	margin-top: 1rem;
+    /* padding: 0 var(--page-padding); */
   }
 
   nav.main-nav > ul {
     display: flex;
+	gap: 1rem;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -222,7 +225,7 @@ import { SITE_TITLE } from "../consts";
     border: none;
     font: inherit;
     color: var(--text);
-    padding: 1rem 1.25rem;
+    /* padding: 1rem 1.25rem; */
     cursor: pointer;
   }
 
@@ -234,6 +237,7 @@ import { SITE_TITLE } from "../consts";
   nav.main-nav > ul > li > button.active {
     /* color: var(--accent); */
     font-weight: bold;
+	border-bottom: 2px solid var(--accent);
   }
 
   .section-title {
@@ -247,7 +251,7 @@ import { SITE_TITLE } from "../consts";
     display: none;
     position: absolute;
     top: 100%;
-    left: var(--page-padding);
+    left: 0;
     width: calc(100% - 4 * var(--page-padding));
     background: var(--dropdown-bg);
     border-top: 1px solid #ddd;
@@ -273,7 +277,7 @@ import { SITE_TITLE } from "../consts";
   }
 
   .mega-panel h3.active {
-    font-weight: 700;
+    /* font-weight: 700; */
 	border-bottom-color: var(--accent);
   }
 
@@ -290,8 +294,8 @@ import { SITE_TITLE } from "../consts";
     text-decoration: none;
   }
 
-  .mega-panel a.active {
-    font-weight: bold;
+  .active {
+    /* font-weight: bold; */
 	border-bottom: 2px solid var(--accent);
   }
 
