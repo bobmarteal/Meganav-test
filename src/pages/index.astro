@@ -1,5 +1,6 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
@@ -13,6 +14,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 	<body>
 		<Header />
 		<main>
+			<Breadcrumbs />
 		<h2>About this site.</h2>
 			<p>“This is a prototype of a new sidebar navigation. We’re testing the navigation — not you. Please think aloud as you go.”</p>
 			<h2>Tasks (10–15 min total)</h2>

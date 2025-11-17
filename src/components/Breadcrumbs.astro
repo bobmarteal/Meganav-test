@@ -1,0 +1,122 @@
+---
+const { pathname } = Astro.url;
+
+// Function to convert URL segments to readable titles
+function formatSegment(segment: string): string {
+  return segment
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+// Build breadcrumb items from path
+const pathSegments = pathname.split('/').filter(segment => segment !== '');
+const breadcrumbs = [
+  { label: 'Home', href: '/' }
+];
+
+// Build cumulative paths
+let cumulativePath = '';
+pathSegments.forEach((segment, index) => {
+  cumulativePath += `/${segment}`;
+  breadcrumbs.push({
+    label: formatSegment(segment),
+    href: cumulativePath
+  });
+});
+---
+
+{breadcrumbs.length > 1 && (
+  <nav aria-label="Breadcrumb" class="breadcrumb-nav">
+    <p class="breadcrumb-label">You are here:</p>
+    <ol class="breadcrumb-list" itemscope itemtype="https://schema.org/BreadcrumbList">
+      {breadcrumbs.map((crumb, index) => (
+        <li 
+          class="breadcrumb-item" 
+          itemprop="itemListElement" 
+          itemscope 
+          itemtype="https://schema.org/ListItem"
+        >
+          {index < breadcrumbs.length - 1 ? (
+            <>
+              <a href={crumb.href} itemprop="item">
+                <span itemprop="name">{crumb.label}</span>
+              </a>
+              <meta itemprop="position" content={String(index + 1)} />
+            </>
+          ) : (
+            <>
+              <span itemprop="name" aria-current="page">{crumb.label}</span>
+              <meta itemprop="position" content={String(index + 1)} />
+            </>
+          )}
+        </li>
+      ))}
+    </ol>
+  </nav>
+)}
+
+<style>
+  .breadcrumb-nav {
+    padding: 1rem 0;
+    font-size: 0.9rem;
+  }
+
+  .breadcrumb-label {
+    margin: 0 0 0.5rem 0;
+    font-weight: 600;
+    color: #555;
+  }
+
+  .breadcrumb-list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .breadcrumb-item {
+    display: flex;
+    align-items: center;
+  }
+
+  .breadcrumb-item:not(:last-child)::after {
+    content: "›";
+    margin-left: 0.5rem;
+    color: #999;
+    font-size: 1.2em;
+  }
+
+  .breadcrumb-item a {
+    color: #0055cc;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .breadcrumb-item a:hover {
+    color: #003d99;
+    text-decoration: underline;
+  }
+
+  .breadcrumb-item span[aria-current="page"] {
+    color: #333;
+    font-weight: 600;
+  }
+
+  @media (max-width: 768px) {
+    .breadcrumb-nav {
+      font-size: 0.85rem;
+    }
+    
+    .breadcrumb-item:not(:last-child)::after {
+      margin-left: 0.3rem;
+    }
+    
+    .breadcrumb-list {
+      gap: 0.3rem;
+    }
+  }
+</style>
